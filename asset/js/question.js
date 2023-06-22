@@ -1,4 +1,5 @@
-let quiz = [
+document.addEventListener('DOMContentLoaded', function() {
+    let quiz = [
     {
         question: "What is an example of a float?",
         option: [
@@ -100,3 +101,55 @@ let quiz = [
         answer: 3,
     },
 ]
+
+
+});
+
+var questionIndex = 0
+
+var questionElement = document.getElementById('question');
+  var optionsElement = document.getElementById('options');
+  
+  function displayQuestion() {
+    var currentQuestion = quiz[questionIndex];
+    questionElement.textContent = currentQuestion.question;
+
+    optionsElement.innerHTML = '';
+
+    currentQuestion.option.forEach(function(option, index) {
+      var button = document.createElement('button');
+      button.classList.add('option');
+      button.textContent = option;
+      button.addEventListener('click', function() {
+        checkAnswer(index + 1);
+      });
+      optionsElement.appendChild(button);
+    });
+  }
+
+  function checkAnswer(selectedAnswer) {
+    var currentQuestion = quiz[questionIndex];
+    var selectedOption = optionsElement.children[selectedAnswer - 1];
+
+    if (selectedAnswer === currentQuestion.answer) {
+      score++;
+      selectedOption.classList.add('correct');
+    } else {
+      time -= 10;
+      if (time < 0) {
+        time = 0;
+      }
+      selectedOption.classList.add('incorrect');
+    }
+
+    Array.from(optionsElement.children).forEach(function(option) {
+      option.disabled = true;
+    });
+
+    questionIndex++;
+
+
+
+
+  });
+  
