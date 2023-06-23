@@ -106,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
     ]
-    var score = 0;
+
+  var score = 0;
   var questionIndex = 0;
   var time = 90;
   var interval;
@@ -120,32 +121,32 @@ document.addEventListener('DOMContentLoaded', function() {
   var viewScoresButton = document.getElementById('viewScoresBtn');
   var scoreDisplayElement= document.getElementById('scoreDisplay');
 
+//  display current question and options 
   function displayQuestion() {
     var currentQuestion = quiz[questionIndex];
     questionElement.textContent = currentQuestion.question;
-
     optionsElement.innerHTML = '';
-
     currentQuestion.option.forEach(function(option, index) {
-      var button = document.createElement('button');
-      button.classList.add('option');
-      button.textContent = option;
-      button.addEventListener('click', function() {
-        checkAnswer(index + 1);
-      });
-      optionsElement.appendChild(button);
+    var button = document.createElement('button');
+    button.classList.add('option');
+    button.textContent = option;
+    button.addEventListener('click', function() {
+    checkAnswer(index + 1);
     });
-  }
 
+    optionsElement.appendChild(button);
+});
+}
+// comparing answers between user choice and correct answers
   function checkAnswer(selectedAnswer) {
     var currentQuestion = quiz[questionIndex];
     var selectedOption = optionsElement.children[selectedAnswer - 1];
 
     if (selectedAnswer === currentQuestion.answer) {
-      score++;
+      score++;  //score updates by 1 when answer selected is correct
       selectedOption.classList.add('correct');
     } else {
-      time -= 10;
+      time -= 10; //if incorrect answer, time decreases by 10
       if (time < 0) {
         time = 0;
       }
@@ -171,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     scoreElement.textContent = score;
   }
-
+// updating timer and quiz ends with it reaches zero
   function updateTimer() {
     timerElement.textContent = time;
     if (time === 0) {
@@ -182,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     time--;
   }
-
+//displays when quiz is over
   function displayQuizOver() {
     questionElement.textContent = "Quiz Over!";
     optionsElement.innerHTML = "If you got a high score dont't forget to submit!";
@@ -194,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
     viewScoresButton.addEventListener('click', displayTopScores);
     
   }
-
+//quiz reset values
   function resetQuiz() {
     score = 0;
     questionIndex = 0;
@@ -208,16 +209,15 @@ document.addEventListener('DOMContentLoaded', function() {
     displayQuestion();
     interval = setInterval(updateTimer, 1000);
   }
-
-
-
+//eventlistener for play again in displayQuiz over
   playAgainButton.addEventListener('click', function() {
     resetQuiz();
   });
-
+//displaying first question over again & resetting timer
   displayQuestion();
-  interval = setInterval(updateTimer, 1000);
+    interval = setInterval(updateTimer, 1000);
 
+//modal function
   function promptNScore() {
     const modal = document.getElementById('scoreModal');
     const modalInput = document.getElementById('scoreInitials');
@@ -239,16 +239,16 @@ document.addEventListener('DOMContentLoaded', function() {
         highScores.sort((a, b) => b.score - a.score); // Sort scores in descending order
         highScores.splice(10); // Keep only the top 10 scores
         localStorage.setItem('highScores', JSON.stringify(highScores));
+
+     // Hide the modal
+     modal.style.display = 'none';
   
-        // Hide the modal
-        modal.style.display = 'none';
-  
-        // Display top 10 scores
-        displayTopScores();
-      }
-    });
-  }
-  
+     // Display top 10 scores
+     displayTopScores();
+   }
+ });
+}
+//top10scores
   function displayTopScores() {
     const scoreDisplayElement = document.getElementById('scoreDisplay');
     const highScoresData = JSON.parse(localStorage.getItem('highScores'));

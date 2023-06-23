@@ -1,7 +1,20 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgb(73, 72, 69);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 #quiz-container {
+    margin: 20px 0; 
+    background-color: white;
+    width: 600px;
+    height: 570px;
     text-align: center;
-    margin: 20px auto;
-    width: 400px;
+    border: none;
+    border-radius: 25px;
   }
   
   #score-container, #timer-container {
@@ -10,24 +23,24 @@
   
   #options {
     margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   
   .option {
     display: block;
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 10px;
   }
 
-  #submit-btn {
-    display: block;
-    margin: 20px auto;
-  }
-  
   .hidden {
     display: none;
   }
   
+  /* options correct & incorrect */
   .correct {
     background-color: green;
     color: white;
@@ -37,9 +50,37 @@
     background-color: red;
     color: white;
   }
+
+/* buttons */
+#submit-btn {
+  display: block;
+  margin: 20px auto;
+}
+
 .myBtns{
     margin-top: 20px;
 }
+
+.myBtns button{
+    font-size: 15px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    background-color: rgb(66, 43, 197);
+    transition: all 0.15s;
+    
+}
+
+.myBtns button:hover {
+cursor: pointer;
+}
+
+
+.myBtns button:active {
+   opacity: .8;
+    }
+
   #play-again-btn, #submit-btn, #viewScoresBtn{
     display: inline-flex;
    margin: 0 10px;
@@ -49,7 +90,8 @@
    #scoreDisplay{
 display: none;
   }
-  
+
+  /* hidden modal */
   .modal {
     display: none;
     position: fixed;
@@ -68,6 +110,7 @@ display: none;
     padding: 20px;
     border: 1px solid #888;
     width: 300px;
+  
   }
   
   .close {
